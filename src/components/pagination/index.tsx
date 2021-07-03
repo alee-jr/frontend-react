@@ -30,6 +30,13 @@ const Pagination: React.FC<Props> = ({
     [stateToCallNewPagesEvent, dispatch, adicionalDateToState, current_page, maxPages],
   );
 
+  const changePageByNumber = useCallback(
+    (page: number) => {
+      dispatch(stateToCallNewPagesEvent({ ...(adicionalDateToState || {}), ...{ page: page } }));
+    },
+    [stateToCallNewPagesEvent, dispatch, adicionalDateToState],
+  );
+
   return (
     <Container>
       <div>
@@ -42,7 +49,7 @@ const Pagination: React.FC<Props> = ({
             current_page === 1 ? current_page + 2 : current_page + 1,
           )
           .map(page => (
-            <NumberButton selected={page === current_page}>
+            <NumberButton selected={page === current_page} onClick={() => changePageByNumber(page)}>
               <p>{page}</p>
             </NumberButton>
           ))}
