@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Content, Table, Row } from './styles';
 import Pagination from '../../components/pagination';
+import { useSelector, useDispatch } from 'react-redux';
+import { getPosts } from '../../store/ducks/getPosts/actions';
 
 const Home: React.FC = () => {
+  const dispatch = useDispatch();
+  const { data, current_page, total } = useSelector(state => state.getPosts);
+
+  useEffect(() => {
+    dispatch(getPosts.request(undefined));
+  }, []);
+
   return (
     <Container>
       <Content>
@@ -11,23 +20,27 @@ const Home: React.FC = () => {
         </div>
         <Table>
           <Row>
-            <div>teste</div>
-            <div>teste</div>
+            <div>Título</div>
+            <div>Conteúdo</div>
           </Row>
-          <Row>
-            <div>teste</div>
-            <div>teste</div>
-          </Row>
-          <Row>
-            <div>teste</div>
-            <div>teste</div>
-          </Row>
+          {data &&
+            data.map(value => (
+              <Row>
+                <div>{value.title}</div>
+                <div>{value.body}</div>
+              </Row>
+            ))}
         </Table>
         <div>
           <div>
-            <p>Exibindo 9 postagens</p>
+            <p>Exibindo {(data && data.length) || 0} postagens</p>
           </div>
-          <Pagination current_page={1} maxPages={1} pages={5} />
+          <Pagination
+            stateToCallNewPagesEvent={getPosts.request}
+            current_page={current_page}
+            maxPages={total}
+            pages={total}
+          />
         </div>
       </Content>
     </Container>

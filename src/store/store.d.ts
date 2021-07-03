@@ -1,4 +1,8 @@
-export interface ApplicationState {}
+import { GetPostsState } from './ducks/getPosts/types';
+
+export interface ApplicationState {
+  getPosts: GetPostsState;
+}
 
 declare module 'react-redux' {
   interface DefaultRootState extends ApplicationState {

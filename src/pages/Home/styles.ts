@@ -17,6 +17,7 @@ export const Content = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  padding-bottom: 1rem;
   > div:first-of-type {
     padding: 2rem;
     width: 100%;
@@ -47,7 +48,9 @@ export const Table = styled.div`
   flex-direction: column;
   width: 99%;
   border: 1px solid #efeeee;
-  min-height: calc(100% - 11rem);
+  min-height: calc(100% - 9.7rem);
+  overflow-y: auto;
+  position: relative;
 `;
 
 export const Row = styled.div`
@@ -55,6 +58,8 @@ export const Row = styled.div`
   flex-direction: row;
   border-bottom: 1px solid #efeeee;
   &:first-of-type {
+    position: sticky;
+    top: 0;
     background-color: #f0efef;
     > div {
       padding: 1rem 1.5rem;
@@ -67,7 +72,8 @@ export const Row = styled.div`
   }
   > div {
     padding: 1.5rem;
-    width: auto;
+    width: 100%;
+    align-self: center;
     flex-grow: 1;
   }
 `;
